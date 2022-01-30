@@ -9,5 +9,10 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop" : true,
     "sourceMap": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
   }
 }

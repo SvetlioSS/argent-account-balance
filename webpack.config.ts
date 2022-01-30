@@ -1,8 +1,9 @@
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import * as path from 'path';
+import * as webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import 'webpack-dev-server';
 
-module.exports = {
+const config: webpack.Configuration = {
   entry: "./src/index.tsx",
   mode: "development",
   devtool: 'inline-source-map',
@@ -14,14 +15,12 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        test: /\.s[ac]ss$/i,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+        ]
       }
     ]
   },
@@ -32,6 +31,7 @@ module.exports = {
   },
   devServer: {
     compress: true,
+    open: true,
     static: {
       directory: path.join(__dirname, 'public'),
     },
@@ -40,3 +40,5 @@ module.exports = {
     new HtmlWebpackPlugin({ template: './src/index.html' })
   ]
 };
+
+export default config;
